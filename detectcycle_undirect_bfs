@@ -1,0 +1,28 @@
+bool bfshelper(int root,vector<int> adj[],vector<bool>& visited)
+    {
+        visited[root]=true;
+        queue<pair<int,int>> pendingnodes;
+        pendingnodes.push(make_pair(root,-1));
+        while(!pendingnodes.empty())
+        {
+            pair<int,int> front=pendingnodes.front();
+            pendingnodes.pop();
+            for(int i=0;i<adj[front.first].size();i++)
+            {
+                int neighbour=adj[front.first][i];
+                if(front.second==neighbour) continue;
+                if(visited[neighbour]) return true;
+                visited[neighbour]=true;
+                pendingnodes.push(make_pair(neighbour,front.first));
+            }
+        }
+        return false;
+    }
+    bool isCycle(int V, vector<int> adj[]) {
+        vector<bool> visited(V,false);
+        for(int i=0;i<V;i++)
+        {
+            if(!visited[i] && bfshelper(i,adj,visited)) return true;
+        }
+        return false;
+    }
