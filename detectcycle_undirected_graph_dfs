@@ -1,0 +1,20 @@
+bool dfshelper(int root,vector<int> adj[],vector<bool>& visited,int parent)
+    {
+        visited[root]=true;
+        for(int i=0;i<adj[root].size();i++)
+        {
+            int neighbour=adj[root][i];
+            if(parent == neighbour) continue;
+            if(visited[neighbour]) return true;
+            if(dfshelper(neighbour,adj,visited,root)) return true;
+        }
+        return false;
+    }
+    bool isCycle(int V, vector<int> adj[]) {
+        vector<bool> visited(V,false);
+        for(int i=0;i<V;i++)
+        {
+            if(!visited[i] && dfshelper(i,adj,visited,-1)) return true;
+        }
+        return false;
+    }
