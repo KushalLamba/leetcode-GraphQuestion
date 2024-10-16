@@ -1,0 +1,24 @@
+   bool dfshelper(int root,vector<int> adj[],vector<bool>& visited,vector<bool>& currvisit)
+    {
+        visited[root]=true;
+        currvisit[root]=true;
+        for(int i=0;i<adj[root].size();i++)
+        {
+            int neighbour=adj[root][i];
+            if(visited[neighbour]==false && dfshelper(neighbour,adj,visited,currvisit))
+               return true;
+            else if(visited[neighbour] && currvisit[neighbour]) return true;
+        }
+        currvisit[root]=false;
+        return false;
+    }
+    bool isCyclic(int V, vector<int> adj[]) {
+        vector<bool> visited(V,false);
+        vector<bool> currvisit(V,false);
+        for(int i=0;i<V;i++)
+        {
+            if(!visited[i] && dfshelper(i,adj,visited,currvisit))
+               return true;
+        }
+        return false;
+    }
