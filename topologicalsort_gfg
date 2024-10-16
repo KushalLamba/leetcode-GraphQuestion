@@ -1,0 +1,28 @@
+void dfshelper(int root,vector<int> adj[],vector<int>& ans,vector<bool>& visited)
+	{
+	    if(visited[root]) return;
+	    visited[root]=true;
+	    for(int i=0;i<adj[root].size();i++)
+	    {
+	        int neighbour=adj[root][i];
+	        if(!visited[neighbour])
+	        {
+	            dfshelper(neighbour,adj,ans,visited);
+	        }
+	    }
+	    ans.push_back(root);
+	}
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	   vector<int> ans;
+	   vector<bool> visited(V,false);
+	   for(int i=0;i<V;i++)
+	   {
+	       if(!visited[i])
+	       {
+	           dfshelper(i,adj,ans,visited);
+	       }
+	   }
+	   reverse(ans.begin(),ans.end());
+	   return ans;
+	}
