@@ -1,0 +1,17 @@
+ void dfs(int root,vector<vector<int>>& adj,vector<int>& ans,vector<bool>& visited)
+    {
+        if(visited[root]) return;
+        visited[root]=true;
+        ans.push_back(root);
+        for(int i=0;i<adj[root].size();i++)
+        {
+            dfs(adj[root][i],adj,ans,visited);
+        }
+    }
+    
+    vector<int> dfsOfGraph(vector<vector<int>>& adj) {
+        vector<int> ans;
+        vector<bool> visited(adj.size(),false);
+        dfs(0,adj,ans,visited);
+        return ans;
+    }
