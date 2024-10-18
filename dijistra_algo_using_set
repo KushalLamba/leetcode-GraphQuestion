@@ -1,0 +1,30 @@
+vector<int> dijkstra(vector<vector<pair<int, int>>> &adj, int src)
+{
+    int V = adj.size();
+    vector<int> result(V, INT_MAX);
+    set<pair<int, int>> set;
+    set.insert({src, 0});
+    result[src] = 0;
+    while (!set.empty())
+    {
+        auto &front = *set.begin();
+        set.erase(front);
+        int node = front.first;
+        int dis = front.second;
+        for (int i = 0; i < adj[node].size(); i++)
+        {
+            int neighbour = adj[node][i].first;
+            int ndistance = adj[node][i].second;
+            if (ndistance + dis < result[neighbour])
+            {
+                if (result[neighbour] != INT_MAX)
+                {
+                    set.erase({neighbour, result[neighbour]});
+                }
+                result[neighbour] = ndistance + dis;
+                set.insert({neighbour, result[neighbour]});
+            }
+        }
+    }
+    return result;
+}
